@@ -18,7 +18,7 @@ INSERT INTO stars
   VALUES
     ('The Sun', '5800'),
     ('Proxima Centauri', '3042'),
-    ('Gliese', '876');
+    ('Gliese 876', '3192');
 
 INSERT INTO planets
   (name, orbital_period, star_name)
@@ -35,3 +35,12 @@ INSERT INTO moons
     ('The Moon', 'Earth'),
     ('Phobos', 'Mars'),
     ('Deimos', 'Mars');
+
+SELECT planets.name, stars.name, count(moons.planet_name) AS moon_count
+FROM planets
+  INNER JOIN stars 
+  ON planets.star_name = stars.name
+  LEFT JOIN moons
+  ON moons.planet_name = planets.name 
+  GROUP BY planets.name, stars.name;
+
