@@ -6,24 +6,25 @@ CREATE TABLE customers (
 
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
-    purchase_date date NOT NULL,
+    purchase_date TIMESTAMP NOT NULL , --TODO: default current timestamp
     note VARCHAR(50),
-    customer_id INT REFERENCES customers
+    customer_id INT NOT NULL REFERENCES customers
 );
 
 CREATE TABLE bikes (
-    models_id TEXT PRIMARY KEY,
+    models_id VARCHAR(5) PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
     price int NOT NULL
 );
 
 CREATE TABLE order_bikes (
     id SERIAL PRIMARY KEY,
-    bike_model_id TEXT REFERENCES bikes,
-    order_id INT REFERENCES orders,
-    total_price int NOT NULL 
+    bike_model_id VARCHAR(5) NOT NULL REFERENCES bikes,
+    order_id INT NOT NULL REFERENCES orders,
+    total_price NUMERIC(5,2) NOT NULL --TODO: Check numeric syntz
 );
 
-INSERT INTO bikes 
+INSERT INTO bikes
 (models_id, price)
 VALUES
     ('FLY', 500),
